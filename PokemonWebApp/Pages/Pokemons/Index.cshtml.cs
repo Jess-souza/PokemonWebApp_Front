@@ -9,9 +9,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 
-namespace PokemonWebApp.Pages
+namespace PokemonWebApp.Pages.Pokemons
 {
-    public class PokemonModel : PageModel
+    public class IndexModel : PageModel
     {
         public List<Pokemon> Pokemons { get; private set; }
         string baseUrl = "https://localhost:44381/";
@@ -26,7 +26,7 @@ namespace PokemonWebApp.Pages
                 HttpResponseMessage response = await client.GetAsync("api/Pokemons");
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = response.Content.ReadAsStringAsync().Result;
+                    string result = response.Content.ReadAsStringAsync().Result;
                     Pokemons = JsonConvert.DeserializeObject<List<Pokemon>>(result);
                 }
             }
